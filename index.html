@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Voice - إدارة المواقع الإلكترونية</title>
+  <!-- AOS Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+/* Navigation Styles */
+#mainNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #0b67b2, #0d8ddb);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 9999;
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+/* اللوجو */
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  transition: transform 0.3s;
+}
+
+.logo a:hover {
+  transform: scale(1.05);
+}
+
+.logo-icon {
+  width: 45px;
+  height: 45px;
+  margin-left: 10px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.logo-text {
+  font-family: 'Tahoma', Arial, sans-serif;
+}
+
+/* قائمة التنقل */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 5px;
+}
+
+.nav-link {
+  display: block;
+  padding: 10px 18px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 2px;
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.nav-link:hover::before {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.nav-link.active {
+  background: rgba(255,255,255,0.2);
+  font-weight: bold;
+}
+
+/* زر القائمة للموبايل */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 10000;
+}
+
+.menu-toggle span {
+  width: 28px;
+  height: 3px;
+  background: #fff;
+  margin: 3px 0;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* Responsive للموبايل */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: linear-gradient(135deg, #0b67b2, #0d8ddb);
+    flex-direction: column;
+    padding: 30px 20px;
+    gap: 10px;
+    transition: right 0.4s ease;
+    overflow-y: auto;
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-link {
+    font-size: 18px;
+    padding: 15px 20px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .logo a {
+    font-size: 18px;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* الوضع الليلي للـ Nav */
+body.dark-mode #mainNav {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+}
+
+/* زر واتساب CTA */
+#whatsappBtn{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+#whatsappBtn:hover{background:#1ebe57;}
+#whatsappBtn img{width:32px; height:32px;}
+
+    body {
+      margin: 0;
+      padding-top: 70px;
+      font-family: 'Tahoma', Arial, sans-serif;
+      background: #f4f9ff;
+      color: #111827;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* الوضع الليلي */
+    body.dark-mode {
+      background: #111827;
+      color: #f4f9ff;
+    }
+    body.dark-mode header {
+      background: linear-gradient(135deg, #333, #000);
+    }
+    body.dark-mode .card,
+    body.dark-mode .stat {
+      background: #1e293b;
+      color: #f4f9ff;
+      box-shadow: 0 5px 20px rgba(255,255,255,0.1);
+    }
+    body.dark-mode footer {
+      background: #000;
+    }
+
+    /* زر الوضع الليلي */
+    #theme-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 45px;
+      height: 45px;
+      border: none;
+      border-radius: 50%;
+      background: #000;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: 0.3s;
+    }
+    #theme-toggle.light {
+      background: #ff9800;
+      color: #fff200;
+    }
+
+    /* أيقونات متحركة كخلفية */
+    .floating-icon {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      opacity: 0.15;
+      z-index: -1;
+      animation: float 15s infinite ease-in-out;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-60px) rotate(20deg); }
+      100% { transform: translateY(0) rotate(-20deg); }
+    }
+
+    /* توزيع الأيقونات */
+    .icon1 { top: 20%; left: 10%; animation-delay: 0s; }
+    .icon2 { top: 40%; right: 15%; animation-delay: 3s; }
+    .icon3 { top: 70%; left: 30%; animation-delay: 6s; }
+    .icon4 { top: 10%; right: 40%; animation-delay: 9s; }
+    .icon5 { bottom: 15%; left: 50%; animation-delay: 12s; }
+    .icon6 { bottom: 25%; right: 25%; animation-delay: 7s; }
+    .icon7 { top: 60%; right: 10%; animation-delay: 4s; }
+
+    /* الهيدر */
+    header {
+      background: linear-gradient(135deg, #87CEFA, #00BFFF);
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+      border-bottom: none;
+    }
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+    header p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #f0f8ff;
+    }
+
+    .btn {
+      background: #ff6a00;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #e55b00;
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+    .stat {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+    .stat:hover {
+      transform: translateY(-8px);
+    }
+    .stat h2 {
+      font-size: 28px;
+      color: #0b67b2;
+      margin: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #0b67b2;
+    }
+
+    .testimonials .card {
+      text-align: center;
+    }
+    .stars {
+      color: #FFD700;
+      margin: 5px 0;
+    }
+
+    footer {
+      background: #0b67b2;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 24px;
+      }
+      header p {
+        font-size: 16px;
+      }
+      .section {
+        padding: 40px 15px;
+      }
+      .stats {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Header -->
+  <nav id="mainNav">
+    <div class="nav-container">
+      <!-- اللوجو -->
+      <div class="logo">
+        <a href="index.html">
+          <img src="logo.jpg" alt="Creative Voice" class="logo-icon">
+          <span class="logo-text">Creative Voice</span>
+        </a>
+      </div>
+
+      <!-- قائمة التنقل -->
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+        <li><a href="clients.html" class="nav-link">العملاء</a></li>
+        <li><a href="design.html" class="nav-link">التصميم</a></li>
+        <li><a href="works.html" class="nav-link">أعمالنا</a></li>
+        <li><a href="manage.html" class="nav-link">الإدارة</a></li>
+        <li><a href="contact.html" class="nav-link">تواصل معنا</a></li>
+      </ul>
+
+      <!-- زر القائمة للموبايل -->
+      <button class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- زر الوضع الليلي -->
+  <button id="theme-toggle">🌙</button>
+
+  <!-- أيقونات خلفية متحركة -->
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" class="floating-icon icon1" alt="facebook">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" class="floating-icon icon2" alt="instagram">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" class="floating-icon icon3" alt="linkedin">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="floating-icon icon4" alt="whatsapp">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" class="floating-icon icon5" alt="youtube">
+  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="floating-icon icon6" alt="rocket">
+  <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" class="floating-icon icon7" alt="growth">
+
+  <!-- الهيدر -->
+  <header data-aos="fade-down">
+    <h1>خلي موقعك دايمًا محدث واحترافي 🚀</h1>
+    <p>إدارة كاملة لموقعك الإلكتروني: تحديث محتوى – SEO – دعم فني – متابعة الأداء</p>
+    <a href="https://wa.me/201287296630" class="btn">اطلب إدارتنا الآن</a>
+  </header>
+
+  <!-- مؤشرات -->
+  <section class="section" data-aos="fade-up">
+    <h2 style="text-align:center; margin-bottom:30px;">مؤشرات بتتكلم عن نجاحنا 📊</h2>
+    <div class="stats">
+      <div class="stat" data-aos="zoom-in"><h2>+50</h2><p>موقع مُدار باحترافية</p></div>
+      <div class="stat" data-aos="zoom-in" data-aos-delay="100"><h2>+30</h2><p>عميل نشط شهريًا</p></div>
+      <div class="stat" data-aos="zoom-in" data-aos-delay="200"><h2>95%</h2><p>رضا العملاء</p></div>
+      <div class="stat" data-aos="zoom-in" data-aos-delay="300"><h2>+5 سنوات</h2><p>خبرة في إدارة المواقع</p></div>
+    </div>
+  </section>
+
+  <!-- خدمات -->
+  <section class="section" data-aos="fade-right">
+    <h2 style="text-align:center; margin-bottom:30px;">خدماتنا الأساسية ✨</h2>
+    <div class="grid">
+      <div class="card" data-aos="flip-left"><h3>تحديث المحتوى</h3><p>نكتب ونرفع المقالات ونجهز موقعك للزوار.</p></div>
+      <div class="card" data-aos="flip-left" data-aos-delay="100"><h3>تحسين SEO</h3><p>نرفع ترتيب موقعك في جوجل عشان يجذب عملاء.</p></div>
+      <div class="card" data-aos="flip-left" data-aos-delay="200"><h3>متابعة الأداء</h3><p>تقارير دورية عن السرعة والزوار.</p></div>
+      <div class="card" data-aos="flip-left" data-aos-delay="300"><h3>الدعم الفني</h3><p>حل المشاكل الفنية والباك أب المنتظم.</p></div>
+    </div>
+  </section>
+
+  <!-- آراء العملاء -->
+  <section class="section testimonials" data-aos="fade-up">
+    <h2 style="text-align:center; margin-bottom:30px;">آراء عملائنا ⭐⭐⭐⭐⭐</h2>
+    <div class="grid">
+      <div class="card"><p>"خدمة ممتازة جدًا! الموقع بقى أسرع."</p><div class="stars">★★★★★</div><p><strong>أحمد سامي</strong></p></div>
+      <div class="card" data-aos-delay="100"><p>"الفريق ماسك كل حاجة باحترافية."</p><div class="stars">★★★★★</div><p><strong>منى إبراهيم</strong></p></div>
+      <div class="card" data-aos-delay="200"><p>"التقارير الشهرية ساعدتنا نفهم عملائنا."</p><div class="stars">★★★★★</div><p><strong>محمود علي</strong></p></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="text-align:center;" data-aos="zoom-in">
+    <h2>جاهز تخلي موقعك واجهة احترافية لشركتك؟</h2>
+    <a href="https://wa.me/201287296630" class="btn">تواصل معنا على واتساب</a>
+  </section>
+
+  <!-- الفوتر -->
+  <footer>
+    <div style="margin-bottom:15px;">
+      <h3 style="margin:0;font-size:22px;">Creative Voice Agency</h3>
+      <p style="margin:5px 0 0;font-size:14px;color:#dce7f3;">شريكك في تصميم وإدارة المواقع</p>
+    </div>
+
+    <div style="margin:15px 0;">
+      <a href="https://wa.me/201287296630" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Whatsapp" width="28">
+      </a>
+      <a href="https://facebook.com/CreativeVoiceAgency" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="28">
+      </a>
+      <a href="https://instagram.com/" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" width="28">
+      </a>
+      <a href="https://linkedin.com/" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" width="28">
+      </a>
+      <a href="https://youtube.com/" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" alt="YouTube" width="28">
+      </a>
+    </div>
+
+    <div style="margin:15px 0;font-size:15px;">
+      📞 01287296630 | ✉️ Adel_Saad2@hotmail.com
+    </div>
+
+    <p style="margin-top:15px;font-size:13px;color:#dce7f3;">
+      © 2025 Creative Voice Agency - جميع الحقوق محفوظة
+    </p>
+  </footer>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 1200, once: true });</script>
+
+  <!-- زر الوضع الليلي Script -->
+  <script>
+    const themeToggle = document.getElementById("theme-toggle");
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      if (document.body.classList.contains("dark-mode")) {
+        themeToggle.textContent = "☀️";
+        themeToggle.classList.add("light");
+      } else {
+        themeToggle.textContent = "🌙";
+        themeToggle.classList.remove("light");
+      }
+    });
+
+    // Navigation Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    // إغلاق القائمة عند الضغط على أي رابط
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+      });
+    });
+
+    // تحديد الصفحة النشطة
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+      }
+    });
+  </script>
+
+  <!-- زر واتساب CTA مع اللوجو فقط -->
+  <a href="https://wa.me/201287296630" target="_blank" id="whatsappBtn">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+  </a>
+
+</body>
+</html>
