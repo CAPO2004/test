@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>خدمة إدارة المواقع - Creative Voice</title>
+  <style>
+    :root{
+      --blue:#0b67b2;
+      --orange:#ff6a00;
+      --dark:#0f1724;
+      --muted:#667085;
+      --card:#ffffff;
+      --bg:#f6f9fc;
+      --radius:12px;
+      font-family: 'Tahoma', Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--dark);line-height:1.55;overflow-x:hidden;position:relative;transition: background 0.3s,color 0.3s;}
+    .container{max-width:1100px;margin:30px auto;padding:20px;position:relative;z-index:1}
+
+    /* floating icons */
+    .floating-icons{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+    .icon{position:absolute;width:40px;opacity:0.16;filter:blur(.2px);animation:floatUp 20s linear infinite}
+    @keyframes floatUp{0%{transform:translateY(100vh) rotate(0)}100%{transform:translateY(-10vh) rotate(360deg)}}
+
+    /* Hero + content */
+    .hero{background:linear-gradient(90deg,#eaf4ff 0%, #ffffff 100%);border-radius:var(--radius);padding:28px;display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:center;transition: background 0.3s,color 0.3s;}
+    .hero h1{font-size:28px;margin:0 0 10px;color:var(--blue)}
+    .hero p.lead{margin:0 0 16px;color:var(--muted)}
+    .badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+    .badge{background:var(--card);padding:8px 12px;border-radius:10px;box-shadow:0 4px 12px rgba(11,103,178,0.06);font-weight:600}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:22px}
+    .feature{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 4px 14px rgba(11,103,178,0.04);transition:transform .3s,background 0.3s,color 0.3s;}
+    .feature:hover{transform:translateY(-5px)}
+    .feature h4{margin:0 0 6px;color:var(--blue)}
+
+    .testimonials{margin-top:28px;display:grid;gap:12px}
+    .test{background:linear-gradient(180deg,#fff 0%, #fbfdff 100%);padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(11,103,178,0.04);transition:background 0.3s,color 0.3s;}
+    .stars{color:#f5b800;font-size:16px}
+    .t-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;color:var(--muted);font-size:13px}
+
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:14px;position:relative;z-index:1;transition: background 0.3s,color 0.3s;}
+
+    /* Animations */
+    .anim { opacity:0; visibility:hidden; transform-origin:center center; transition-property: opacity, transform; transition-timing-function:cubic-bezier(.2,.9,.2,1); transition-duration:700ms; will-change:opacity,transform;}
+    .anim[data-anim="fade-up"] { transform: translateY(26px) scale(0.995); }
+    .anim[data-anim="fade-down"] { transform: translateY(-26px) scale(0.995); }
+    .anim[data-anim="fade-left"] { transform: translateX(28px) scale(0.995); }
+    .anim[data-anim="fade-right"] { transform: translateX(-28px) scale(0.995); }
+    .anim[data-anim="zoom-in"] { transform: translateY(10px) scale(0.88); }
+    .anim[data-anim="zoom-out"] { transform: translateY(10px) scale(1.08); }
+    .anim[data-anim="zoom-rotate"] { transform: translateY(10px) scale(0.9) rotate(-6deg); }
+    .anim.inview { opacity:1; visibility:visible; transform: translateY(0) translateX(0) scale(1) rotate(0deg); }
+
+    @media (prefers-reduced-motion: reduce) { .anim{transition:none !important; transform:none !important; opacity:1 !important; visibility:visible !important;} .icon{animation:none !important;opacity:.06;} }
+    @media (max-width:900px){.hero{grid-template-columns:1fr;}}
+
+    /* زر الوضع الليلي */
+    #themeToggle{
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background:#2e8b57;
+      color:#fff;
+      border:none;
+      padding:12px 16px;
+      border-radius:50%;
+      font-size:20px;
+      cursor:pointer;
+      z-index:1000;
+      transition: background 0.3s;
+    }
+    #themeToggle:hover{background:#246b45;}
+
+    /* زر واتساب CTA */
+    #whatsappBtn{
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      border-radius:50%;
+      width:60px;
+      height:60px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+    #whatsappBtn:hover{background:#1ebe57;}
+    #whatsappBtn img{width:32px; height:32px;}
+
+    /* الوضع الليلي */
+    body.dark-mode{
+      background:#111827;
+      color:#f4f9ff;
+    }
+    body.dark-mode .hero{background:linear-gradient(90deg,#1a3b2c,#14532d); color:#f4f9ff;}
+    body.dark-mode .feature, body.dark-mode .badge{background:#1e293b; color:#f4f9ff; box-shadow:0 4px 14px rgba(255,255,255,0.05);}
+    body.dark-mode .test{background:#1e293b; color:#f4f9ff;}
+    body.dark-mode footer{background:#000; color:#fff;}
+  </style>
+</head>
+<body>
+
+  <!-- floating icons background -->
+  <div class="floating-icons" aria-hidden="true">
+    <img loading="lazy" src="https://cdn-icons-png.flaticon.com/512/733/733547.png" class="icon" style="left:8%; top:12%; animation-duration:24s" alt="">
+    <img loading="lazy" src="https://cdn-icons-png.flaticon.com/512/733/733558.png" class="icon" style="left:28%; top:45%; animation-duration:20s" alt="">
+    <img loading="lazy" src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="icon" style="left:48%; top:72%; animation-duration:26s" alt="">
+    <img loading="lazy" src="https://cdn-icons-png.flaticon.com/512/733/733646.png" class="icon" style="left:68%; top:20%; animation-duration:22s" alt="">
+    <img loading="lazy" src="https://cdn-icons-png.flaticon.com/512/742/742751.png" class="icon" style="left:86%; top:60%; animation-duration:28s" alt="">
+  </div>
+
+  <!-- زر الوضع الليلي -->
+  <button id="themeToggle">🌙</button>
+
+  <!-- زر واتساب CTA مع اللوجو فقط -->
+  <a href="https://wa.me/201287296630" target="_blank" id="whatsappBtn">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+  </a>
+
+  <div class="container">
+    <!-- Hero -->
+    <div class="hero">
+      <div>
+        <div class="badges anim" data-anim="fade-up" data-delay="0.05s">
+          <div class="badge">خدمة إدارة المواقع</div>
+          <div class="badge">دعم شهري</div>
+          <div class="badge">SEO & Performance</div>
+        </div>
+
+        <h1 class="anim" data-anim="zoom-in" data-delay="0.10s">موقعك دايمًا محدث، سريع، وبيجيب عملاء — من غير تعب منك 🚀</h1>
+
+        <p class="lead anim" data-anim="fade-up" data-delay="0.14s">إدارتنا للمواقع مصممة لأصحاب الأعمال اللي مش معاهم وقت: تحديث محتوى، رفع صور، تحسين سرعات، ومتابعة الأداء عشان الموقع يشتغل فعلاً ويجيب عملاء.</p>
+
+        <div class="grid" aria-hidden="false">
+          <div class="feature anim" data-anim="fade-up" data-delay="0.18s">
+            <h4>تحديث محتوى احترافي</h4>
+            <p class="small">رفع المقالات، تعديل النصوص، وتنظيم المحتوى عشان يتكلم عن خدماتك صح.</p>
+          </div>
+          <div class="feature anim" data-anim="fade-up" data-delay="0.22s">
+            <h4>تحسين ظهورك في جوجل (SEO)</h4>
+            <p class="small">نطبق قواعد السيو الأساسية ونحسّن صفحات مهمة عشان تجيب زوار طبيعيين.</p>
+          </div>
+          <div class="feature anim" data-anim="fade-up" data-delay="0.26s">
+            <h4>مراقبة الأداء</h4>
+            <p class="small">تقارير دورية عن الزيارات، سرعة الموقع، وتحويل الزوار لعملاء.</p>
+          </div>
+          <div class="feature anim" data-anim="fade-up" data-delay="0.30s">
+            <h4>دعم فني وصيانة</h4>
+            <p class="small">تحديثات أمنية، باك أب منتظم، والتعامل مع أي عطل بسرعة.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="testimonials">
+      <h3 class="anim" data-anim="fade-right" data-delay="0.34s">آراء عملائنا اللي بيتابعونا</h3>
+
+      <div class="test anim" data-anim="zoom-in" data-delay="0.36s">
+        <div class="stars">★★★★★</div>
+        <p>"فريق Creative Voice ماسك الموقع بتاعنا بالكامل من أول شهرين؛ الزيارات زادت ومعدلات التحويل اتحسنت."</p>
+        <div class="t-meta"><span><strong>أحمد سامي</strong> – Nile Logistics</span><span class="small">5 نجوم</span></div>
+      </div>
+
+      <div class="test anim" data-anim="zoom-out" data-delay="0.40s">
+        <div class="stars">★★★★★</div>
+        <p>"التحديثات السريعة والدعم الفني خلانا نركز في شغلنا ومبقيناش نقلق على الموقع."</p>
+        <div class="t-meta"><span><strong>منى ناجي</strong> – Elegant Beauty</span><span class="small">5 نجوم</span></div>
+      </div>
+
+      <div class="test anim" data-anim="fade-left" data-delay="0.44s">
+        <div class="stars">★★★★★</div>
+        <p>"بعد إدارتهم للموقع، بقت الصفحات المرشحة في جوجل بتجيب لنا عملاء جدد كل أسبوع."</p>
+        <div class="t-meta"><span><strong>كريم فؤاد</strong> – Smart Business</span><span class="small">5 نجوم</span></div>
+      </div>
+
+      <div class="test anim" data-anim="zoom-rotate" data-delay="0.48s">
+        <div class="stars">★★★★★</div>
+        <p>"التعامل احترافي، وتقارير الأداء بتخلينا نعرف إيه اللي شغال وإيه لأ."</p>
+        <div class="t-meta"><span><strong>ليلى محمود</strong> – Cafe Bloom</span><span class="small">5 نجوم</span></div>
+      </div>
+
+      <div class="test anim" data-anim="fade-up" data-delay="0.52s">
+        <div class="stars">★★★★★</div>
+        <p>"خدمة ممتازة وأسعار واضحة. أنصح أي حد عايز يرفع موقعه لمحترف."</p>
+        <div class="t-meta"><span><strong>محمود علاء</strong> – Future Tech</span><span class="small">5 نجوم</span></div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="background:#0b67b2;color:#fff;padding:30px 20px;text-align:center;font-family:'Tahoma',sans-serif;">
+    <div style="margin-bottom:15px;">
+      <h3 style="margin:0;font-size:22px;">Creative Voice Agency</h3>
+      <p style="margin:5px 0 0;font-size:14px;color:#dce7f3;">شريكك في تصميم وإدارة المواقع</p>
+    </div>
+    <div style="margin:15px 0;">
+ <a href="https://wa.me/201287296630" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Whatsapp" width="28">
+      </a>
+      <a href="https://facebook.com/CreativeVoiceAgency" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="28">
+      </a>
+      <a href="https://instagram.com/" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" width="28">
+      </a>
+      <a href="https://linkedin.com/" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" width="28">
+      </a>
+      <a href="https://youtube.com/" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" alt="YouTube" width="28">
+      </a>
+    </div>
+    <div style="margin:15px 0;font-size:15px;">
+      📞 01287296630 | ✉️ Adel_Saad2@hotmail.com
+    </div>
+    <p style="margin-top:15px;font-size:13px;color:#dce7f3;">
+      © 2025 Creative Voice Agency - جميع الحقوق محفوظة
+    </p>
+  </footer>
+
+  <script>
+    // Animations IntersectionObserver
+    (function(){
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) {
+        document.querySelectorAll('.anim').forEach(el => el.classList.add('inview'));
+        return;
+      }
+      const items = document.querySelectorAll('.anim');
+      const options = { root:null, rootMargin:'0px 0px -10% 0px', threshold:0.12 };
+      const io = new IntersectionObserver((entries,observer)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            const el=entry.target;
+            const delay=el.getAttribute('data-delay'); const dur=el.getAttribute('data-duration');
+            if(delay) el.style.transitionDelay=delay;
+            if(dur) el.style.transitionDuration=dur;
+            requestAnimationFrame(()=>el.classList.add('inview'));
+            observer.unobserve(el);
+          }
+        });
+      },options);
+      items.forEach(el=>{
+        if(!el.getAttribute('data-delay')){
+          const bbox=el.getBoundingClientRect();
+          const base=Math.min(0.5, Math.max(0, bbox.top/window.innerHeight*0.4));
+          el.style.transitionDelay=base.toFixed(2)+'s';
+        }
+        io.observe(el);
+      });
+      window.addEventListener('load',()=>{
+        items.forEach(el=>{
+          const rect=el.getBoundingClientRect();
+          if(rect.top<window.innerHeight-80){
+            if(!el.classList.contains('inview')){
+              const delay=el.getAttribute('data-delay'); if(delay) el.style.transitionDelay=delay;
+              el.classList.add('inview');
+            }
+          }
+        });
+      });
+    })();
+
+    // Theme toggle
+    const themeToggle=document.getElementById("themeToggle");
+    themeToggle.addEventListener("click", ()=>{
+      document.body.classList.toggle("dark-mode");
+      themeToggle.textContent=document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+    });
+  </script>
+</body>
+</html>
