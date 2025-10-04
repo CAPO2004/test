@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نبذة عن أعمالنا - Creative Voice</title>
+
+  <!-- AOS CSS (Animations on Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+/* زر واتساب CTA */
+#whatsappBtn{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+#whatsappBtn:hover{background:#1ebe57;}
+#whatsappBtn img{width:32px; height:32px;}
+
+    body {
+      margin: 0;
+      font-family: 'Tahoma', Arial, sans-serif;
+      background: #f9fafb;
+      color: #111827;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* زر الوضع الليلي */
+    #themeToggle {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: #0b67b2;
+      color: #fff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      z-index: 1000;
+      transition: background 0.3s;
+    }
+    #themeToggle:hover {
+      background: #094a80;
+    }
+
+    /* الخلفية المتحركة */
+    .floating-icons {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .icon {
+      position: absolute;
+      width: 40px;
+      opacity: 0.2;
+      animation: floatUp 18s linear infinite;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-10vh) rotate(360deg); }
+    }
+
+    header {
+      background: linear-gradient(90deg,#0b67b2,#0d8ddb);
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    header h1 { font-size: 32px; margin-bottom: 15px; }
+    header p { font-size: 18px; margin-bottom: 20px; }
+
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .card h3 { margin-top: 0; color: #0b67b2; }
+    .metrics {
+      margin: 15px 0;
+      padding: 10px;
+      background: #f1f5f9;
+      border-radius: 6px;
+    }
+    .metrics p { margin: 5px 0; }
+    .stars { color: #FFD700; margin: 5px 0; }
+
+    .btn {
+      background: #ff6a00;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #e65c00; transform: scale(1.05); }
+
+    footer {
+      background: #0b67b2;
+      color: #fff;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 40px;
+      font-family:'Tahoma',sans-serif;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* الوضع الليلي */
+    body.dark-mode {
+      background: #111827;
+      color: #f4f9ff;
+    }
+    body.dark-mode header {
+      background: linear-gradient(90deg,#222,#000);
+    }
+    body.dark-mode .card {
+      background: #1e293b;
+      color: #f4f9ff;
+      box-shadow: 0 4px 15px rgba(255,255,255,0.05);
+    }
+    body.dark-mode .metrics {
+      background: #2d3748;
+    }
+    body.dark-mode footer {
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- زر الوضع الليلي -->
+  <button id="themeToggle">🌙</button>
+
+  <!-- الخلفية المتحركة -->
+  <div class="floating-icons">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" class="icon" style="left:10%; animation-duration: 22s;">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" class="icon" style="left:30%; animation-duration: 18s;">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" class="icon" style="left:50%; animation-duration: 25s;">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" class="icon" style="left:70%; animation-duration: 20s;">
+    <img src="https://cdn-icons-png.flaticon.com/512/742/742751.png" class="icon" style="left:85%; animation-duration: 26s;">
+  </div>
+
+  <header data-aos="fade-down">
+    <h1>نجاحاتنا مع عملائنا 🚀</h1>
+    <p>شوف بعض المشاريع اللي نفذناها وازاي ساعدنا عملائنا يوصلوا لنتائج حقيقية</p>
+  </header>
+
+  <section class="section">
+    <div class="projects">
+      <!-- مشروع 1 -->
+      <div class="card" data-aos="zoom-in" data-aos-delay="100">
+        <h3>موقع شركة استشارات - عميل: أحمد سامي</h3>
+        <div class="metrics">
+          <p>📊 +20,000 زيارة من جوجل</p>
+          <p>💰 150 استفسار جديد خلال 3 شهور</p>
+          <p>📈 CTR إعلانات: 3.5%</p>
+        </div>
+        <p>"خدمة ممتازة جدًا! الموقع بقى أسرع والنتائج في جوجل اتحسنت بشكل واضح."</p>
+        <div class="stars">★★★★★</div>
+      </div>
+
+      <!-- مشروع 2 -->
+      <div class="card" data-aos="zoom-in" data-aos-delay="200">
+        <h3>موقع متجر إلكتروني - عميلة: منى إبراهيم</h3>
+        <div class="metrics">
+          <p>📊 +50,000 زائر شهري</p>
+          <p>💰 +200 عملية بيع</p>
+          <p>📈 ROI الحملات الإعلانية: 4.2x</p>
+        </div>
+        <p>"مبقيناش نشيل هم إدارة الموقع، الفريق ماسك كل حاجة باحترافية."</p>
+        <div class="stars">★★★★★</div>
+      </div>
+
+      <!-- مشروع 3 -->
+      <div class="card" data-aos="zoom-in" data-aos-delay="300">
+        <h3>موقع تعليمي - عميل: محمود علي</h3>
+        <div class="metrics">
+          <p>📊 +12,000 طالب مسجل</p>
+          <p>💰 500 كورس مبيع</p>
+          <p>📈 معدل تحويل: 9%</p>
+        </div>
+        <p>"التقارير الشهرية ساعدتنا نفهم عملائنا أكتر ونطور خدماتنا."</p>
+        <div class="stars">★★★★★</div>
+      </div>
+
+      <!-- مشروع 4 -->
+      <div class="card" data-aos="zoom-in" data-aos-delay="400">
+        <h3>موقع شركة سياحة - عميلة: سارة محمد</h3>
+        <div class="metrics">
+          <p>📊 +80,000 وصول من إعلانات فيسبوك</p>
+          <p>💰 320 حجز رحلة</p>
+          <p>📈 معدل نقر على الإعلانات: 4%</p>
+        </div>
+        <p>"الفريق ساعدنا نوصل لعملاء جدد بشكل أسرع مما توقعنا."</p>
+        <div class="stars">★★★★★</div>
+      </div>
+
+      <!-- مشروع 5 -->
+      <div class="card" data-aos="zoom-in" data-aos-delay="500">
+        <h3>موقع مطعم - عميل: خالد عبد الرحمن</h3>
+        <div class="metrics">
+          <p>📊 +25,000 تفاعل على المنيو أونلاين</p>
+          <p>💰 1200 طلب دليفري من خلال الموقع</p>
+          <p>📈 تحسين ظهور SEO: من الصفحة 5 للصفحة 1</p>
+        </div>
+        <p>"بفضل إدارة الموقع والـ SEO، مبيعات الدليفري زادت بشكل كبير."</p>
+        <div class="stars">★★★★★</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="text-align:center;" data-aos="fade-up">
+    <h2>عايز تحقق نفس الأرقام دي لمشروعك؟</h2>
+    <a href="https://wa.me/201287296630" class="btn">تواصل معنا دلوقتي</a>
+  </section>
+
+  <footer data-aos="fade-up">
+    <div style="margin-bottom:15px;">
+      <h3 style="margin:0;font-size:22px;">Creative Voice Agency</h3>
+      <p style="margin:5px 0 0;font-size:14px;color:#dce7f3;">شريكك في تصميم وإدارة المواقع</p>
+    </div>
+
+    <div style="margin:15px 0;">
+      <a href="https://wa.me/201287296630" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="Whatsapp" width="28">
+      </a>
+      <a href="https://facebook.com/CreativeVoiceAgency" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="28">
+      </a>
+      <a href="https://instagram.com/" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" width="28">
+      </a>
+      <a href="https://linkedin.com/" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" width="28">
+      </a>
+      <a href="https://youtube.com/" target="_blank" style="margin:0 8px;display:inline-block;">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733646.png" alt="YouTube" width="28">
+      </a>
+    </div>
+
+    <div style="margin:15px 0;font-size:15px;">
+      📞 01287296630 | ✉️ Adel_Saad2@hotmail.com
+    </div>
+
+    <p style="margin-top:15px;font-size:13px;color:#dce7f3;">
+      © 2025 Creative Voice Agency - جميع الحقوق محفوظة
+    </p>
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    const themeToggle = document.getElementById("themeToggle");
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+    });
+  </script>
+<!-- زر واتساب CTA مع اللوجو فقط -->
+<a href="https://wa.me/201287296630" target="_blank" id="whatsappBtn">
+  <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+</a>
+
+</body>
+</html>
