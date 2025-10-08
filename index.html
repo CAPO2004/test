@@ -407,6 +407,46 @@ body.dark-mode #mainNav {
         gap: 15px;
       }
     }
+    /* إصلاحات خاصة للموبايل */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 10px;
+  }
+
+  header {
+    padding: 40px 10px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  .floating-icon {
+    display: none; /* يخفي الأيقونات المتحركة على الموبايل */
+  }
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  #theme-toggle {
+    top: 10px;
+    left: 10px;
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .nav-menu {
+    height: 100vh; /* خليها تاخد طول الشاشة كله */
+  }
+
+  .stat h2 {
+    font-size: 22px;
+  }
+}
+
   </style>
 </head>
 <body>
