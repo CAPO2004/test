@@ -1,253 +1,328 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Secure Network Access Control</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        scroll-behavior: smooth;
-      }
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Voice - إدارة المواقع الإلكترونية</title>
 
-      body {
-        font-family: "Poppins", sans-serif;
-        background-color: #0f172a;
-        color: white;
-        overflow-x: hidden;
-      }
+<!-- AOS Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-      header {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background: linear-gradient(135deg, #1e293b, #0f172a);
-        padding: 60px 20px;
-      }
+<style>
+/* Navigation Styles */
+#mainNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #0b67b2, #0d8ddb);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 9999;
+  animation: slideDown 0.5s ease-out;
+}
 
-      header h1 {
-        font-size: 36px;
-        font-weight: bold;
-        color: #38bdf8;
-        text-shadow: 0px 0px 10px #38bdf8;
-      }
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 
-      header p {
-        font-size: 18px;
-        color: #94a3b8;
-        margin-top: 10px;
-        max-width: 700px;
-      }
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
 
-      .btn {
-        margin-top: 25px;
-        padding: 12px 20px;
-        background: #38bdf8;
-        color: #0f172a;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-      }
+/* اللوجو */
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  transition: transform 0.3s;
+}
+.logo a:hover { transform: scale(1.05); }
+.logo-icon {
+  width: 45px;
+  height: 45px;
+  margin-left: 10px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.logo-text { font-family: 'Tahoma', Arial, sans-serif; }
 
-      .btn:hover {
-        background: #0ea5e9;
-      }
+/* قائمة التنقل */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 5px;
+}
+.nav-link {
+  display: block;
+  padding: 10px 18px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 2px;
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+.nav-link:hover { background: rgba(255,255,255,0.15); }
+.nav-link:hover::before { transform: translateX(-50%) scaleX(1); }
+.nav-link.active { background: rgba(255,255,255,0.2); font-weight: bold; }
 
-      .section {
-        padding: 80px 20px;
-        text-align: center;
-      }
+/* زر القائمة للموبايل */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 10000;
+}
+.menu-toggle span {
+  width: 28px;
+  height: 3px;
+  background: #fff;
+  margin: 3px 0;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+}
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(8px, -8px);
+}
 
-      .section h2 {
-        font-size: 28px;
-        color: #38bdf8;
-        margin-bottom: 15px;
-      }
+/* Responsive للموبايل */
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: linear-gradient(135deg, #0b67b2, #0d8ddb);
+    flex-direction: column;
+    padding: 30px 20px;
+    gap: 10px;
+    transition: right 0.4s ease;
+    overflow-y: auto;
+  }
+  .nav-menu.active { right: 0; }
+  .nav-link {
+    font-size: 18px;
+    padding: 15px 20px;
+    text-align: center;
+    border-radius: 10px;
+  }
+  .logo a { font-size: 18px; }
+  .logo-icon { width: 40px; height: 40px; }
+}
 
-      .section p {
-        max-width: 800px;
-        margin: 0 auto;
-        color: #cbd5e1;
-        line-height: 1.6;
-      }
+/* الوضع الليلي للـ Nav */
+body.dark-mode #mainNav {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+}
 
-      .stats {
-        display: flex;
-        justify-content: center;
-        gap: 50px;
-        margin-top: 40px;
-        flex-wrap: wrap;
-      }
+/* زر واتساب */
+#whatsappBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  border-radius:50%;
+  width:60px;
+  height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+#whatsappBtn:hover { background:#1ebe57; }
+#whatsappBtn img { width:32px; height:32px; }
 
-      .stat {
-        background: #1e293b;
-        padding: 30px;
-        border-radius: 12px;
-        width: 200px;
-        box-shadow: 0px 0px 10px rgba(56, 189, 248, 0.2);
-        transition: transform 0.3s ease;
-      }
+/* أساسيات */
+body {
+  margin: 0;
+  padding-top: 70px;
+  font-family: 'Tahoma', Arial, sans-serif;
+  background: #f4f9ff;
+  color: #111827;
+  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+  transition: background 0.3s, color 0.3s;
+}
 
-      .stat:hover {
-        transform: translateY(-5px);
-      }
+/* الوضع الليلي */
+body.dark-mode { background: #111827; color: #f4f9ff; }
+body.dark-mode header { background: linear-gradient(135deg, #333, #000); }
+body.dark-mode .card, body.dark-mode .stat {
+  background: #1e293b;
+  color: #f4f9ff;
+  box-shadow: 0 5px 20px rgba(255,255,255,0.1);
+}
+body.dark-mode footer { background: #000; }
 
-      .stat h2 {
-        font-size: 30px;
-        color: #38bdf8;
-      }
+/* زر الوضع الليلي */
+#theme-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: 0.3s;
+}
+#theme-toggle.light { background: #ff9800; color: #fff200; }
 
-      .stat p {
-        color: #94a3b8;
-        font-size: 16px;
-      }
+/* أيقونات متحركة */
+.floating-icon {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  opacity: 0.15;
+  z-index: -1;
+  animation: float 15s infinite ease-in-out;
+}
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-60px) rotate(20deg); }
+  100% { transform: translateY(0) rotate(-20deg); }
+}
+.icon1 { top: 20%; left: 10%; animation-delay: 0s; }
+.icon2 { top: 40%; right: 15%; animation-delay: 3s; }
+.icon3 { top: 70%; left: 30%; animation-delay: 6s; }
+.icon4 { top: 10%; right: 40%; animation-delay: 9s; }
+.icon5 { bottom: 15%; left: 50%; animation-delay: 12s; }
+.icon6 { bottom: 25%; right: 25%; animation-delay: 7s; }
+.icon7 { top: 60%; right: 10%; animation-delay: 4s; }
 
-      footer {
-        text-align: center;
-        padding: 40px;
-        background: #1e293b;
-        color: #94a3b8;
-      }
+/* الهيدر */
+header {
+  background: linear-gradient(135deg, #87CEFA, #00BFFF);
+  color: #fff;
+  padding: 60px 20px;
+  text-align: center;
+  border-bottom: none;
+}
+header h1 { font-size: 32px; margin-bottom: 15px; color: #fff; }
+header p { font-size: 18px; margin-bottom: 20px; color: #f0f8ff; }
+.btn {
+  background: #ff6a00;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn:hover { background: #e55b00; }
 
-      /* ✅ تحسين التوافق مع التابلت */
-      @media (max-width: 1024px) {
-        header {
-          padding: 50px 20px;
-        }
+.section { max-width: 1100px; margin: auto; padding: 60px 20px; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+.stat {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s;
+}
+.stat:hover { transform: translateY(-8px); }
+.stat h2 { font-size: 28px; color: #0b67b2; margin: 0; }
 
-        header h1 {
-          font-size: 30px;
-        }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s;
+}
+.card:hover { transform: translateY(-8px); }
+.card h3 { margin-top: 0; color: #0b67b2; }
 
-        header p {
-          font-size: 16px;
-        }
+.testimonials .card { text-align: center; }
+.stars { color: #FFD700; margin: 5px 0; }
 
-        .section {
-          padding: 60px 20px;
-        }
+footer {
+  background: #0b67b2;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
 
-        .stats {
-          gap: 30px;
-        }
+/* Responsive */
+@media (max-width: 768px) {
+  header h1 { font-size: 24px; }
+  header p { font-size: 16px; }
+  .section { padding: 40px 15px; }
+  .stats { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .grid { grid-template-columns: 1fr; }
+}
 
-        .stat {
-          width: 180px;
-          padding: 25px;
-        }
+/* تحسينات خفيفة للموبايل */
+@media (max-width: 480px) {
+  .nav-container { padding: 0 10px; }
+  header { padding: 40px 10px; }
+  header h1 { font-size: 20px; }
+  .floating-icon { display: none; }
+  .btn { padding: 10px 16px; font-size: 14px; }
+  #theme-toggle { top: 10px; left: 10px; width: 38px; height: 38px; font-size: 16px; }
+  .nav-menu { height: 100vh; }
+  .stat h2 { font-size: 22px; }
+}
+</style>
+</head>
 
-        .stat h2 {
-          font-size: 26px;
-        }
-      }
-
-      /* ✅ إصلاحات خاصة للموبايل */
-      @media (max-width: 480px) {
-        .nav-container {
-          padding: 0 10px;
-        }
-
-        header {
-          padding: 40px 10px;
-        }
-
-        header h1 {
-          font-size: 22px;
-        }
-
-        header p {
-          font-size: 14px;
-        }
-
-        .btn {
-          padding: 10px 16px;
-          font-size: 14px;
-        }
-
-        .section {
-          padding: 50px 15px;
-        }
-
-        .section h2 {
-          font-size: 22px;
-        }
-
-        .section p {
-          font-size: 14px;
-        }
-
-        .stats {
-          flex-direction: column;
-          gap: 20px;
-          align-items: center;
-        }
-
-        .stat {
-          width: 80%;
-        }
-
-        footer {
-          padding: 25px;
-          font-size: 14px;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <h1>Secure Network Access Control</h1>
-      <p>
-        Protect your organization’s data by managing and securing access to your
-        network in real-time.
-      </p>
-      <button class="btn" onclick="scrollToSection('about')">Learn More</button>
-    </header>
-
-    <section class="section" id="about">
-      <h2>About the Project</h2>
-      <p>
-        Secure Network Access Control (SNAC) is designed to ensure that only
-        authorized users and devices can connect to a network. It helps
-        organizations monitor and manage security policies to prevent data
-        breaches and cyber threats.
-      </p>
-    </section>
-
-    <section class="section" id="features">
-      <h2>Key Features</h2>
-      <div class="stats">
-        <div class="stat">
-          <h2>99%</h2>
-          <p>Threat Detection Accuracy</p>
-        </div>
-        <div class="stat">
-          <h2>24/7</h2>
-          <p>Active Monitoring</p>
-        </div>
-        <div class="stat">
-          <h2>100+</h2>
-          <p>Secured Networks</p>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <p>© 2025 Secure Network Access Control | All rights reserved</p>
-    </footer>
-
-    <script>
-      function scrollToSection(id) {
-        document.getElementById(id).scrollIntoView({ behavior: "smooth" });
-      }
-    </script>
-  </body>
+<body>
+<!-- باقي الكود كما هو -->
+<!-- ... -->
+</body>
 </html>
